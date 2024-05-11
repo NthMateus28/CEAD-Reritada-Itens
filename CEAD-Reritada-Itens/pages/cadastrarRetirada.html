@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Central</title>
+    <link rel="shortcut icon" href="../Img/logo.png" type="image/x-icon" />
+    <link rel="stylesheet" href="../style/cadastrarReritada.css" />
+</head>
+<body>
+    <form id="cadastroForm">
+        <h1>Cadastro de Retirada de Itens</h1>
+        <label for="nome">Nome do Proprietário:</label>
+        <input type="text" id="nome" name="nome" required>
+        <label for="cpf">CPF do Proprietário:</label>
+        <input type="text" id="cpf" name="cpf" required>
+        <div id="itens">
+            <h2>Itens Disponíveis</h2>
+            <!-- Kit de Higiene -->
+            <div class="item">
+                <label>Kit de Higiene</label>
+                <div class="quantidade-control">
+                    <button type="button" onclick="alterarQuantidade('kitHigiene', 1)">+</button>
+                    <input type="text" id="kitHigiene" name="kitHigiene" value="0" readonly>
+                    <button type="button" onclick="alterarQuantidade('kitHigiene', -1)">-</button>
+                </div>
+            </div>
+            <!-- Roupa -->
+            <div class="item">
+                <label>Roupa</label>
+                <div class="quantidade-control">
+                    <button type="button" onclick="alterarQuantidade('Roupa', 1)">+</button>
+                    <input type="text" id="Roupa" name="Roupa" value="0" readonly>
+                    <button type="button" onclick="alterarQuantidade('Roupa', -1)">-</button>
+                </div>
+            </div>
+            <!-- Colchão -->
+            <div class="item">
+                <label>Colchão</label>
+                <div class="quantidade-control">
+                    <button type="button" onclick="alterarQuantidade('Colchao', 1)">+</button>
+                    <input type="text" id="Colchao" name="Colchao" value="0" readonly>
+                    <button type="button" onclick="alterarQuantidade('Colchao', -1)">-</button>
+                </div>
+            </div>
+            <!-- Roupa íntima -->
+            <div class="item">
+                <label>Roupa íntima</label>
+                <div class="quantidade-control">
+                    <button type="button" onclick="alterarQuantidade('roupaIntima', 1)">+</button>
+                    <input type="text" id="roupaIntima" name="roupaIntima" value="0" readonly>
+                    <button type="button" onclick="alterarQuantidade('roupaIntima', -1)">-</button>
+                </div>
+            </div>
+            <!-- Kit limpeza -->
+            <div class="item">
+                <label>Kit limpeza</label>
+                <div class="quantidade-control">
+                    <button type="button" onclick="alterarQuantidade('kitLimpeza', 1)">+</button>
+                    <input type="text" id="kitLimpeza" name="kitLimpeza" value="0" readonly>
+                    <button type="button" onclick="alterarQuantidade('kitLimpeza', -1)">-</button>
+                </div>
+            </div>
+            <!-- Toalha -->
+            <div class="item">
+                <label>Toalha</label>
+                <div class="quantidade-control">
+                    <button type="button" onclick="alterarQuantidade('Toalha', 1)">+</button>
+                    <input type="text" id="Toalha" name="Toalha" value="0" readonly>
+                    <button type="button" onclick="alterarQuantidade('Toalha', -1)">-</button>
+                </div>
+            </div>
+        </div>
+        <div class="button-group">
+            <input type="submit" value="Cadastrar">
+            <input type="button" class="buscar" value="Buscar" onclick="buscarDesabrigado()">
+            <input type="button" class="alterar" value="Alterar Dados" onclick="alterarDesabrigado()">
+        </div>
+    </form>
+    <script type="module" src="../scripts/cadastrarReritada.js"></script>
+</body>
+</html>
