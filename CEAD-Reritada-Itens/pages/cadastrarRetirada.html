@@ -71,6 +71,30 @@
                 </div>
             </div>
         </div>
+        <div class="item">
+            <label>Fralda</label>
+            <div class="quantidade-control">
+                <button type="button" onclick="alterarQuantidade('Fralda', 1)">+</button>
+                <input type="text" id="Fralda" name="Fralda" value="0" readonly>
+                <button type="button" onclick="alterarQuantidade('Fralda', -1)">-</button>
+            </div>
+        </div>
+        <div class="item">
+            <label>Cobertor</label>
+            <div class="quantidade-control">
+                <button type="button" onclick="alterarQuantidade('Cobertor', 1)">+</button>
+                <input type="text" id="Cobertor" name="Cobertor" value="0" readonly>
+                <button type="button" onclick="alterarQuantidade('Cobertor', -1)">-</button>
+            </div>
+        </div>
+        <div class="item">
+            <label>Travesseiro</label>
+            <div class="quantidade-control">
+                <button type="button" onclick="alterarQuantidade('Travesseiro', 1)">+</button>
+                <input type="text" id="Travesseiro" name="Travesseiro" value="0" readonly>
+                <button type="button" onclick="alterarQuantidade('Travesseiro', -1)">-</button>
+            </div>
+        </div>
         <div class="button-group">
             <input type="submit" value="Cadastrar">
             <input type="button" class="buscar" value="Buscar" onclick="buscarDesabrigado()">
