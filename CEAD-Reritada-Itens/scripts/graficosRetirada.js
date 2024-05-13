@@ -31,7 +31,8 @@ let quantidades = {
     Toalha: 0,
     Fralda: 0,
     Cobertor: 0,
-    Travesseiro: 0
+    Travesseiro: 0,
+    cestaBasica: 0
 };
 
 // Referência à lista de desabrigados
@@ -66,7 +67,8 @@ function atualizarGrafico() {
                         '#FF9F40', // Laranja
                         '#C9CBCF', // Cinza
                         '#7BC043', // Verde claro
-                        '#F7464A'  // Vermelho
+                        '#F7464A',  // Vermelho
+                        '#00FFFF'  // Vermelho
                     ]
                     
                 }]
