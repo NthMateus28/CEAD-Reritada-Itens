@@ -168,6 +168,7 @@ function buscarDesabrigado() {
                 document.getElementById("Cobertor").value = dados.Cobertor || "0";
                 document.getElementById("Travesseiro").value = dados.Travesseiro || "0";
                 document.getElementById("cestaBasica").value = dados.cestaBasica || "0";
+                document.getElementById("Leite").value = dados.Leite || "0";
             });
         } else {
             alert("Nenhum registro encontrado para o CPF fornecido.");
@@ -210,6 +211,7 @@ window.alterarDesabrigado = function() {
                     Cobertor: document.getElementById("Cobertor").value || '0',
                     Travesseiro: document.getElementById("Travesseiro").value || '0',
                     cestaBasica: document.getElementById("cestaBasica").value || '0',
+                    Leite: document.getElementById("Leite").value || '0',
                     dataCadastro: new Date().toISOString() // Atualiza a data de cadastro para a data atual
                 };
 
