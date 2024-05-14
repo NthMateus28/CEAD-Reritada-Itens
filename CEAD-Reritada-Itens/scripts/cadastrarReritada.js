@@ -17,6 +17,32 @@ document.getElementById("cpf").addEventListener("input", function() {
     aplicarMascaraCPF(this);
 });
 
+// Função para aplicar máscara de telefone
+function aplicarMascaraTelefone(campo) {
+    let telefone = campo.value;
+
+    // Remove caracteres que não são números
+    telefone = telefone.replace(/\D/g, "");
+
+    // Limita a quantidade de dígitos ao máximo permitido para telefones no Brasil
+    telefone = telefone.substring(0, 11); // Garante no máximo 11 dígitos
+
+    // Aplica a máscara (00) 00000-0000 para 11 dígitos ou (00) 0000-0000 para 10 dígitos
+    if (telefone.length > 10) {
+        telefone = telefone.replace(/^(\d{2})(\d{1,5})(\d{4})/, "($1) $2-$3");
+    } else {
+        telefone = telefone.replace(/^(\d{2})(\d{1,4})(\d{4})/, "($1) $2-$3");
+    }
+
+    // Atualiza o valor do campo com a máscara
+    campo.value = telefone;
+}
+
+// Associar a função ao evento `input` do campo telefone
+document.getElementById("telefone").addEventListener("input", function() {
+    aplicarMascaraTelefone(this);
+});
+
 
 // Inicializar o Firebase e banco de dados
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
@@ -85,6 +111,7 @@ function cadastrarDesabrigado(event) {
 function criarCadastro() {
     const nome = document.getElementById("nome").value;
     const cpf = document.getElementById("cpf").value;
+    const telefone = document.getElementById("telefone").value;
     const dataCadastro = new Date().toISOString(); // Captura a data e hora atual
 
     // Adicionando todos os itens com quantidades
@@ -98,6 +125,7 @@ function criarCadastro() {
     const dadosRegistro = {
         nome,
         cpf,
+        telefone,
         ...itens,
         dataCadastro
     };
@@ -127,6 +155,7 @@ function buscarDesabrigado() {
             snapshot.forEach((childSnapshot) => {
                 const dados = childSnapshot.val();
                 document.getElementById("nome").value = dados.nome || "";
+                document.getElementById("telefone").value = dados.telefone || "";
                 
                 // Atualizar campos de itens
                 document.getElementById("kitHigiene").value = dados.kitHigiene || "0";
@@ -170,6 +199,7 @@ window.alterarDesabrigado = function() {
                 const dadosAtualizados = {
                     nome: document.getElementById("nome").value,
                     cpf: document.getElementById("cpf").value, // Supondo que o CPF pode ser atualizado, se não, remova esta linha
+                    telefone: document.getElementById("telefone").value,
                     kitHigiene: document.getElementById("kitHigiene").value || '0',
                     Roupa: document.getElementById("Roupa").value || '0',
                     Colchao: document.getElementById("Colchao").value || '0',
