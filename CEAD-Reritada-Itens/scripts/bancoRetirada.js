@@ -46,6 +46,7 @@ function adicionarLinhaTabela(dados) {
         <td>${dataFormatada}</td>
         <td>${dados.nome || ""}</td>
         <td>${dados.cpf || ""}</td>
+        <td>${dados.telefone || ""}</td>
         <td>${dados.kitHigiene || ""}</td>
         <td>${dados.Roupa || ""}</td>
         <td>${dados.Colchao || ""}</td>
