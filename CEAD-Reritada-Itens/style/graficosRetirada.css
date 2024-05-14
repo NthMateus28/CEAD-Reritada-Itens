@@ -12,6 +12,44 @@ h1 {
     margin-bottom: 20px;
 }
 
+.container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    background-color: #f4f4f4; /* Cor de fundo cinza claro */
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* Sombra suave */
+    margin: 20px auto;
+    width: 80%; /* Largura da div */
+    max-width: 600px; /* Máxima largura da div */
+}
+
+.container label {
+    margin-right: 10px; /* Espaço entre o label e o input */
+    font-weight: bold; /* Torna o texto do label negrito */
+}
+
+.container input[type="date"],
+.container button {
+    padding: 8px 12px;
+    border: 1px solid #ccc; /* Borda cinza */
+    border-radius: 4px; /* Bordas arredondadas para os inputs e botões */
+    font-size: 16px; /* Tamanho da fonte */
+}
+
+.container button {
+    background-color: #007BFF; /* Cor de fundo azul para o botão */
+    color: white; /* Texto branco */
+    cursor: pointer; /* Cursor em forma de ponteiro */
+    margin-left: 10px; /* Espaço à esquerda do botão */
+}
+
+.container button:hover {
+    background-color: #0056b3; /* Cor de fundo quando o mouse está sobre o botão */
+}
+
+
 /* Contêiner do gráfico para centralizar e definir tamanho */
 .grafico-container {
     display: flex;
@@ -43,6 +81,15 @@ canvas {
 
     canvas {
         max-width: 300px; /* Reduz o tamanho do gráfico para telas menores */
+    }
+
+    .container{
+        flex-direction: column;
+    }
+
+    .container input,
+    .container button{
+        margin-top: 10px;
     }
 }
 
