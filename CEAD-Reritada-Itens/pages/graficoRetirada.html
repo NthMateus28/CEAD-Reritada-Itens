@@ -3,19 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gráficos de Idade</title>
+    <title>Gráfico da Quantidade de Retirada por Itens</title>
     <link rel="shortcut icon" href="../Img/logo.png" type="image/x-icon" />
     <link rel="stylesheet" href="../style/graficosRetirada.css" />
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
 </head>
 <body>
     <h1>Gráfico da Quantidade de Retirada por Itens</h1>
+    <div class="container">
+    <label for="dataFiltro">Escolha a Data:</label>
+    <input type="date" id="dataFiltro">
+    <button id="btnFiltrar">Filtrar Data</button>
+</div>
     <div class="grafico-container">
-        <!-- Área para o gráfico -->
         <canvas id="graficoIdades"></canvas>
     </div>
-
-    <!-- Adicionar o script como módulo -->
     <script type="module" src="../scripts/graficosRetirada.js"></script>
 </body>
 </html>
