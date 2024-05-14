@@ -2,10 +2,13 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebas
 import {
     getDatabase,
     ref,
-    onChildAdded
+    query,
+    orderByChild,
+    startAt,
+    endAt,
+    onValue
 } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
 
-// Configuração do Firebase
 const firebaseConfig = {
     apiKey: "AIzaSyABJp-i8baIq6JScP4AWNGWYa9Rlgn3vN0",
     authDomain: "cead-reritada-itens.firebaseapp.com",
@@ -17,11 +20,9 @@ const firebaseConfig = {
     measurementId: "G-P902G0C14X"
 };
 
-// Inicialize o app Firebase
 const app = initializeApp(firebaseConfig);
-const database = getDatabase(app); // Inicialize o Realtime Database
+const database = getDatabase(app);
 
-// Inicializa as variáveis para contar os itens
 let quantidades = {
     kitHigiene: 0,
     Roupa: 0,
@@ -32,70 +33,75 @@ let quantidades = {
     Fralda: 0,
     Cobertor: 0,
     Travesseiro: 0,
-    cestaBasica: 0
+    cestaBasica: 0,
+    Leite: 0
 };
 
-// Referência à lista de desabrigados
-const desabrigadosRef = ref(database, "desabrigados");
-
-// Inicializa a estrutura do gráfico para barras
 let graficoBarras;
 
-// Função para atualizar o gráfico de barras com novos dados
 function atualizarGrafico() {
     const contexto = document.getElementById("graficoIdades").getContext("2d");
-
-    // Se o gráfico já foi criado, apenas atualize os dados
-    if (graficoBarras) {
-        graficoBarras.data.datasets[0].data = Object.values(quantidades);
-        graficoBarras.update(); // Atualiza os dados no gráfico
-    } else {
-        // Cria o gráfico de barras pela primeira vez
+    if (!graficoBarras) {
         graficoBarras = new Chart(contexto, {
-            type: "bar", // Tipo de gráfico de barras
+            type: "bar",
             data: {
                 labels: Object.keys(quantidades),
                 datasets: [{
                     label: "Quantidade de Itens Retirados",
                     data: Object.values(quantidades),
-                    backgroundColor: [
-                        '#FF6384', // Rosa
-                        '#36A2EB', // Azul
-                        '#FFCE56', // Amarelo
-                        '#4BC0C0', // Verde-água
-                        '#9966FF', // Roxo
-                        '#FF9F40', // Laranja
-                        '#C9CBCF', // Cinza
-                        '#7BC043', // Verde claro
-                        '#F7464A',  // Vermelho
-                        '#00FFFF'  // Vermelho
-                    ]
-                    
+                    backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0', '#9966FF', '#FF9F40', '#C9CBCF', '#7BC043', '#F7464A', '#00FFFF', '#FFFF00']
                 }]
             },
             options: {
                 responsive: true,
                 scales: {
-                    yAxes: [{
-                        ticks: {
-                            beginAtZero: true
-                        }
-                    }]
+                    y: {
+                        beginAtZero: true
+                    }
                 }
             }
         });
+    } else {
+        graficoBarras.data.datasets[0].data = Object.values(quantidades);
+        graficoBarras.update();
     }
 }
 
-// Processar cada nova entrada ao ser adicionada
-onChildAdded(desabrigadosRef, (snapshot) => {
-    const dados = snapshot.val();
+function filtrarDadosPorData(dataInicio, dataFim) {
+    console.log("Filtrando dados de", dataInicio, "a", dataFim);
+    const formattedStart = dataInicio + "T00:00:00.000Z";
+    const formattedEnd = dataFim + "T23:59:59.999Z";
+    const dataQuery = query(ref(database, "desabrigados"), orderByChild("dataCadastro"), startAt(formattedStart), endAt(formattedEnd));
 
-    // Incrementar cada item baseado nos dados recebidos
-    Object.keys(quantidades).forEach(item => {
-        quantidades[item] += Number(dados[item] || 0);
+    onValue(dataQuery, snapshot => {
+        Object.keys(quantidades).forEach(key => {
+            quantidades[key] = 0; // Reset quantidades
+        });
+
+        snapshot.forEach(childSnapshot => {
+            const dados = childSnapshot.val();
+            Object.keys(quantidades).forEach(item => {
+                if (dados[item]) {
+                    quantidades[item] += Number(dados[item]);
+                }
+            });
+        });
+
+        console.log("Dados após filtro:", quantidades);
+        atualizarGrafico();
+    }, {
+        onlyOnce: true
     });
+}
 
-    // Atualizar o gráfico com os novos valores
-    atualizarGrafico();
+document.getElementById('btnFiltrar').addEventListener('click', function() {
+    const dataSelecionada = document.getElementById('dataFiltro').value;
+    if (dataSelecionada) {
+        filtrarDadosPorData(dataSelecionada, dataSelecionada);
+    }
+});
+
+document.addEventListener("DOMContentLoaded", () => {
+    const today = new Date().toISOString().split('T')[0];
+    filtrarDadosPorData(today, today); // Filtra para o dia atual inicialmente
 });
