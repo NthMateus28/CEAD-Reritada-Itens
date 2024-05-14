@@ -57,6 +57,7 @@ function adicionarLinhaTabela(dados) {
         <td>${dados.Cobertor || ""}</td>
         <td>${dados.Travesseiro || ""}</td>
         <td>${dados.cestaBasica || ""}</td>
+        <td>${dados.Leite || ""}</td>
     `;
 
     // Adiciona a nova linha ao corpo da tabela
